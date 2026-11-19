@@ -1,0 +1,21 @@
+---
+import Base from '../layouts/Base.astro';
+import { getCollection } from 'astro:content';
+import { SITE } from '../data/site';
+const posts = (await getCollection('articles', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+---
+<Base title={SITE.name} description={SITE.tagline}>
+  <h1>{SITE.name}</h1>
+  <p>{SITE.tagline}。スクール・転職エージェント・制度は、公式情報で確認した事実と、実務で感じたことを分けて書いています。</p>
+  <h2>新着記事</h2>
+  <ul class="card-list">
+    {posts.map((p) => (
+      <li>
+        <a href={`/articles/${p.id}/`}>{p.data.title}</a>
+        <div class="meta">{p.data.category}・{p.data.pubDate.toLocaleDateString('ja-JP')}</div>
+        <div>{p.data.description}</div>
+      </li>
+    ))}
+  </ul>
+</Base>

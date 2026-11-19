@@ -1,0 +1,10 @@
+---
+import Base from '../layouts/Base.astro';
+import { SITE } from '../data/site';
+const ready = SITE.contactUrl.startsWith('http');
+---
+<Base title="お問い合わせ" description={`${SITE.name}へのお問い合わせ。`}>
+  <h1>お問い合わせ</h1>
+  <p>記事内容の誤り、広告掲載のご相談などは、以下のフォームからご連絡ください。</p>
+  {ready ? <p><a href={SITE.contactUrl} target="_blank" rel="noopener">お問い合わせフォームを開く</a></p> : <p>{SITE.contactUrl}</p>}
+</Base>

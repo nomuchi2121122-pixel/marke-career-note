@@ -1,0 +1,27 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getCollection, render } from 'astro:content';
+export async function getStaticPaths() {
+  const posts = await getCollection('articles', ({ data }) => !data.draft);
+  return posts.map((post) => ({ params: { slug: post.id }, props: { post } }));
+}
+const { post } = Astro.props;
+const { Content } = await render(post);
+const d = post.data;
+---
+<Base title={d.title} description={d.description} showPr={d.hasAffiliate}>
+  <article>
+    <h1>{d.title}</h1>
+    <p class="meta">
+      {d.category}・公開 {d.pubDate.toLocaleDateString('ja-JP')}
+      {d.updatedDate && `・更新 ${d.updatedDate.toLocaleDateString('ja-JP')}`}
+    </p>
+    <Content />
+    {d.sources.length > 0 && (
+      <section class="sources">
+        <h2>参考にした公式情報</h2>
+        <ul>{d.sources.map((s) => <li><a href={s.url} target="_blank" rel="noopener">{s.title}</a></li>)}</ul>
+      </section>
+    )}
+  </article>
+</Base>

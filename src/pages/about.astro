@@ -1,0 +1,21 @@
+---
+import Base from '../layouts/Base.astro';
+import { SITE } from '../data/site';
+---
+<Base title="運営者情報" description={`${SITE.name}の運営者情報と編集方針です。`}>
+  <h1>運営者情報</h1>
+  <table>
+    <tr><th>サイト名</th><td>{SITE.name}</td></tr>
+    <tr><th>運営者</th><td>{SITE.operatorName}</td></tr>
+    <tr><th>経歴</th><td>{SITE.operatorProfile}</td></tr>
+    <tr><th>開設</th><td>{SITE.established}</td></tr>
+    <tr><th>お問い合わせ</th><td><a href="/contact/">お問い合わせページ</a></td></tr>
+  </table>
+  <h2>編集方針</h2>
+  <ul>
+    <li>料金・補助金・制度などの事実は、公式サイトや省庁の資料で確認し、記事末尾に参照元を載せます。</li>
+    <li>公式情報で確認した事実と、運営者の実務経験にもとづく意見は、区別して書きます。</li>
+    <li>記事の調査・下書きにはAIツールを使っています。公開前に運営者が内容を確認し、実務経験にもとづく情報を加えています。</li>
+    <li>情報が古くなった場合は、更新日を明記して修正します。誤りに気づいた方はお問い合わせからご連絡ください。</li>
+  </ul>
+</Base>

@@ -1,0 +1,34 @@
+{
+  "webmarks": {
+    "name": "WEBMARKS",
+    "category": "Webマーケティングスクール",
+    "officialUrl": "https://webmarks.jp/",
+    "affiliateUrl": "",
+    "asp": "",
+    "note": "ASPで提携後に affiliateUrl を入れる"
+  },
+  "reskilling-portal": {
+    "name": "リスキリングを通じたキャリアアップ支援事業（経済産業省）",
+    "category": "公的制度",
+    "officialUrl": "https://careerup.reskilling.go.jp/",
+    "affiliateUrl": "",
+    "asp": "",
+    "note": "公的制度。アフィリエイト対象外"
+  },
+  "kyufu-search": {
+    "name": "教育訓練講座検索システム（厚生労働省）",
+    "category": "公的制度",
+    "officialUrl": "https://www.kyufu.mhlw.go.jp/kensaku/",
+    "affiliateUrl": "",
+    "asp": "",
+    "note": "公的制度。アフィリエイト対象外"
+  },
+  "hellowork-kyufu": {
+    "name": "教育訓練給付制度（ハローワーク）",
+    "category": "公的制度",
+    "officialUrl": "https://www.hellowork.mhlw.go.jp/insurance/insurance_education.html",
+    "affiliateUrl": "",
+    "asp": "",
+    "note": "公的制度。アフィリエイト対象外"
+  }
+}

@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://marke-career-note.pages.dev/sitemap-index.xml
