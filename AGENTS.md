@@ -20,6 +20,11 @@
 5. プルリクエストを作る。本文に「記事タイトル／狙うキーワード／運営者に書いてほしい一言の箇所」を一覧にする
 6. 運営者が一言を足し、`draft: false` にしてマージすると公開される
 
+## 提携状況の扱い
+- `src/data/affiliates.json` の `status` が「提携済み」のサービスを優先して記事で紹介する
+- 「審査中」のサービスも記事には書いてよい（承認後に affiliateUrl を入れれば自動で広告リンクになる）
+- 運営者がA8.netで承認を確認したら、affiliateUrl にテキストリンクのURL（https://px.a8.net/svt/ejp?a8mat=...）を入れ、status を「提携済み」にする
+
 ## 記事の書き方
 - frontmatter は `src/content.config.ts` のスキーマに従う。広告リンクを含む記事は `hasAffiliate: true`（記事冒頭にPR表記が自動で出る）
 - 広告リンクは必ず `[テキスト](aff:サービスID)` の形で書く。IDは `src/data/affiliates.json` に登録する。新しいサービスは `affiliateUrl` を空のまま追加する

@@ -5,7 +5,7 @@
     "officialUrl": "https://webmarks.jp/",
     "affiliateUrl": "",
     "asp": "",
-    "note": "ASPで提携後に affiliateUrl を入れる"
+    "note": "A8.netに案件なし。もしもアフィリエイト等で要確認"
   },
   "reskilling-portal": {
     "name": "リスキリングを通じたキャリアアップ支援事業（経済産業省）",
@@ -30,5 +30,125 @@
     "affiliateUrl": "",
     "asp": "",
     "note": "公的制度。アフィリエイト対象外"
+  },
+  "massmedian": {
+    "name": "マスメディアン",
+    "category": "転職エージェント（マーケ・クリエイティブ職特化）",
+    "officialUrl": "https://www.massmedian.co.jp/",
+    "affiliateUrl": "https://px.a8.net/svt/ejp?a8mat=4BGPOO+OESKY+3JN0+5ZU2A",
+    "asp": "A8.net",
+    "a8ProgramId": "s00000016542001",
+    "reward": "面談 7,000円",
+    "status": "提携済み"
+  },
+  "mynavi-creator": {
+    "name": "マイナビクリエイター",
+    "category": "転職エージェント（Web・ゲーム・クリエイター）",
+    "officialUrl": "https://mynavi-creator.jp/",
+    "affiliateUrl": "",
+    "asp": "A8.net",
+    "a8ProgramId": "s00000027373002",
+    "reward": "登録会＋カウンセリング 21,148円",
+    "status": "審査中（2026-11-20申請）"
+  },
+  "adcareer": {
+    "name": "アドキャリ転職",
+    "category": "転職エージェント（広告運用者向け）",
+    "officialUrl": "https://adope-tensyoku.jp/",
+    "affiliateUrl": "",
+    "asp": "A8.net",
+    "a8ProgramId": "s00000024170001",
+    "reward": "無料相談 15,000円",
+    "status": "審査中（2026-11-20申請）"
+  },
+  "marcari-next": {
+    "name": "マーキャリNEXT CAREER",
+    "category": "転職エージェント（SaaS業界）",
+    "officialUrl": "https://next.mar-cari.jp/",
+    "affiliateUrl": "",
+    "asp": "A8.net",
+    "a8ProgramId": "s00000022372001",
+    "reward": "面談 12,000円",
+    "status": "審査中（2026-11-20申請）"
+  },
+  "geekly": {
+    "name": "Geekly",
+    "category": "転職エージェント（IT・Web業界）",
+    "officialUrl": "https://www.geekly.co.jp/",
+    "affiliateUrl": "",
+    "asp": "A8.net",
+    "a8ProgramId": "s00000016183001",
+    "reward": "来社面談 13,888円／オンライン面談 6,499円",
+    "status": "審査中（2026-11-20申請）"
+  },
+  "anna": {
+    "name": "ANNA",
+    "category": "転職エージェント（20〜30代・職種横断）",
+    "officialUrl": "https://career.anna-agent.jp/",
+    "affiliateUrl": "",
+    "asp": "A8.net",
+    "a8ProgramId": "s00000027013001",
+    "reward": "会員登録 15,000円",
+    "status": "審査中（2026-11-20申請）"
+  },
+  "posiwill": {
+    "name": "POSIWILL CAREER",
+    "category": "キャリアコーチング",
+    "officialUrl": "https://posiwill.jp/career/",
+    "affiliateUrl": "",
+    "asp": "A8.net",
+    "a8ProgramId": "s00000025557001",
+    "reward": "無料面談 9,473円",
+    "status": "審査中（2026-11-20申請）"
+  },
+  "wannabe": {
+    "name": "Wannabeアカデミー",
+    "category": "Webマーケティングスクール",
+    "officialUrl": "https://shareway.jp/wannabe_web/",
+    "affiliateUrl": "",
+    "asp": "A8.net",
+    "a8ProgramId": "s00000021714001",
+    "reward": "無料個別相談 7,000円",
+    "status": "審査中（2026-11-20申請）"
+  },
+  "break-marketing": {
+    "name": "Break Marketing Program",
+    "category": "Webマーケティングスクール",
+    "officialUrl": "https://break-marketing-program.jp/",
+    "affiliateUrl": "",
+    "asp": "A8.net",
+    "a8ProgramId": "s00000022904001",
+    "reward": "面談 13,534円",
+    "status": "審査中（2026-11-20申請）"
+  },
+  "dmm-genai-camp": {
+    "name": "DMM 生成AI CAMP",
+    "category": "生成AI講座",
+    "officialUrl": "https://genai.dmm.com/",
+    "affiliateUrl": "",
+    "asp": "A8.net",
+    "a8ProgramId": "s00000027398001",
+    "reward": "入会 7,519円／セミナー予約 2,257円",
+    "status": "審査中（2026-11-20申請）"
+  },
+  "daytra": {
+    "name": "デイトラ",
+    "category": "Webスキルのオンラインスクール",
+    "officialUrl": "https://www.daily-trial.com/",
+    "affiliateUrl": "",
+    "asp": "A8.net",
+    "a8ProgramId": "s00000025787001",
+    "reward": "講座購入 5,000〜10,000円",
+    "status": "審査中（2026-11-20申請）"
+  },
+  "web-kaiseki": {
+    "name": "ウェブ解析士認定資格",
+    "category": "マーケティング資格",
+    "officialUrl": "https://www.waca.associates/jp/course/wac/",
+    "affiliateUrl": "",
+    "asp": "A8.net",
+    "a8ProgramId": "s00000024675001",
+    "reward": "講座・試験購入 3,000円",
+    "status": "審査中（2026-11-20申請）"
   }
 }
