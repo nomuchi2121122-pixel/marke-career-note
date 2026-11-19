@@ -26,3 +26,11 @@ blockquote { margin:20px 0; padding:12px 16px; background:var(--soft); border-le
 td:first-child { white-space: nowrap; font-weight: 600; background: var(--soft); }
 th, td { min-width: 10em; }
 td:first-child, th:first-child { min-width: auto; }
+.breadcrumb { font-size:13px; color:var(--muted); margin-top:8px; }
+.breadcrumb a { color:var(--muted); }
+.toc { background:var(--soft); border:1px solid var(--line); border-radius:8px; padding:12px 20px; margin:24px 0; font-size:15px; }
+.toc-title { font-weight:700; margin:0 0 4px; }
+.toc ol { margin:0; padding-left:1.4em; }
+.author-box { margin-top:40px; padding:16px 20px; border:1px solid var(--line); border-radius:8px; font-size:14px; color:var(--muted); }
+.author-box .author-name { font-weight:700; color:var(--fg); margin-top:0; }
+.related { margin-top:40px; }

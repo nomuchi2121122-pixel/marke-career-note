@@ -1,10 +1,45 @@
 ---
 import { SITE } from '../data/site';
 import '../styles.css';
-interface Props { title: string; description: string; showPr?: boolean }
-const { title, description, showPr = false } = Astro.props;
+interface Props {
+  title: string;
+  description: string;
+  showPr?: boolean;
+  /** 記事ページなら 'article'（OGPの種類が変わる） */
+  type?: 'website' | 'article';
+  publishedTime?: Date;
+  modifiedTime?: Date;
+  /** ページ固有の構造化データ（JSON-LD）。サイト共通分は自動で入る */
+  jsonLd?: Record<string, unknown>[];
+}
+const { title, description, showPr = false, type = 'website', publishedTime, modifiedTime, jsonLd = [] } = Astro.props;
 const fullTitle = title === SITE.name ? title : `${title}｜${SITE.name}`;
 const canonical = new URL(Astro.url.pathname, Astro.site);
+const siteUrl = new URL('/', Astro.site).href;
+const ogImage = new URL('/og-default.png', Astro.site).href;
+
+// サイト共通の構造化データ：サイト名と運営者
+const siteJsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    '@id': `${siteUrl}#website`,
+    name: SITE.name,
+    url: siteUrl,
+    inLanguage: 'ja',
+    publisher: { '@id': `${siteUrl}#operator` },
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Person',
+    '@id': `${siteUrl}#operator`,
+    name: SITE.operatorName,
+    url: new URL('/about/', Astro.site).href,
+    description: SITE.operatorProfile,
+    sameAs: [SITE.threadsUrl],
+  },
+];
+const allJsonLd = [...siteJsonLd, ...jsonLd];
 ---
 <!doctype html>
 <html lang="ja">
@@ -16,10 +51,19 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
     <link rel="canonical" href={canonical} />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="sitemap" href="/sitemap-index.xml" />
+    <meta property="og:site_name" content={SITE.name} />
+    <meta property="og:locale" content="ja_JP" />
     <meta property="og:title" content={fullTitle} />
     <meta property="og:description" content={description} />
-    <meta property="og:type" content="website" />
+    <meta property="og:type" content={type} />
     <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    {publishedTime && <meta property="article:published_time" content={publishedTime.toISOString()} />}
+    {modifiedTime && <meta property="article:modified_time" content={modifiedTime.toISOString()} />}
+    <script type="application/ld+json" set:html={JSON.stringify(allJsonLd)} />
   </head>
   <body>
     <header class="site-header">
