@@ -23,3 +23,6 @@ blockquote { margin:20px 0; padding:12px 16px; background:var(--soft); border-le
 .sources { margin-top:40px; font-size:14px; color:var(--muted); }
 .site-footer { border-top:1px solid var(--line); padding:24px 0; font-size:14px; color:var(--muted); }
 .site-footer nav a { margin-right:16px; color:var(--muted); }
+td:first-child { white-space: nowrap; font-weight: 600; background: var(--soft); }
+th, td { min-width: 10em; }
+td:first-child, th:first-child { min-width: auto; }
