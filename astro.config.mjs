@@ -14,7 +14,8 @@ for (const file of fs.readdirSync(articlesDir).filter((f) => f.endsWith('.md')))
   const fm = text.match(/^---\n([\s\S]*?)\n---/)?.[1] ?? '';
   const pick = (key) => fm.match(new RegExp(`^${key}:\\s*["']?([0-9-]+)`, 'm'))?.[1];
   const date = pick('updatedDate') ?? pick('pubDate');
-  if (date) lastmodByPath[`/articles/${file.replace(/\.md$/, '')}/`] = new Date(date).toISOString();
+  // 日付は日本時間として扱う（UTCにすると未来の日時になり、Googleに無視されることがある）
+  if (date) lastmodByPath[`/articles/${file.replace(/\.md$/, '')}/`] = `${date}T00:00:00+09:00`;
 }
 
 export default defineConfig({
