@@ -5,5 +5,6 @@ export const SITE = {
   operatorName: 'Nomryo',
   operatorProfile: '大学在学中からフリーランスとして、IT関連の代理店業務やカスタマーサクセスを経験。その後、広告事業・採用事業の立ち上げやマーケティング業務に携わる。現在は人材紹介事業の責任者として、求職者との面談・求人提案・選考対策から、求人広告の運用やSNSでの応募者集め、KPI管理まで担当している。',
   contactUrl: 'https://docs.google.com/forms/d/e/1FAIpQLSfObffG_EidpJafe6syUknNJ8tbHHfNNb_4j6hI_W1Bh8Qmpg/viewform',
+  threadsUrl: 'https://www.threads.com/@nomryo_marketer',
   established: '2026年11月',
 };
