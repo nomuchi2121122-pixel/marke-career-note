@@ -29,6 +29,12 @@
 - 「審査中」のサービスも記事には書いてよい（承認後に affiliateUrl を入れれば自動で広告リンクになる）
 - 運営者がA8.netで承認を確認したら、affiliateUrl にテキストリンクのURL（https://px.a8.net/svt/ejp?a8mat=...）を入れ、status を「提携済み」にする
 
+## 楽天アフィリエイト（書籍・商品）
+- 楽天市場・楽天ブックスの商品は `[テキスト](rakuten:https://books.rakuten.co.jp/rb/xxxxx/)` の形で書くと広告リンクになる（設定は `src/data/rakuten.json`）
+- 書籍は、楽天ブックスで実在するページのURLを確認してから使う。URLを推測で作らない
+- 運営者が読んでいない本を「読んでよかった」などと体験談のように書かない。紹介するときは、書名・著者・どんな内容の本か（出版社の紹介文などの事実）にとどめる
+- 書籍リンクは記事の補足として使い、1記事に入れすぎない（目安：3冊まで）
+
 ## 記事の書き方
 - frontmatter は `src/content.config.ts` のスキーマに従う。広告リンクを含む記事は `hasAffiliate: true`（記事冒頭にPR表記が自動で出る）
 - 広告リンクは必ず `[テキスト](aff:サービスID)` の形で書く。IDは `src/data/affiliates.json` に登録する。新しいサービスは `affiliateUrl` を空のまま追加する

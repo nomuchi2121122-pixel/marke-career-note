@@ -4,6 +4,14 @@ import fs from 'node:fs';
 import path from 'node:path';
 
 const dataPath = path.resolve('src/data/affiliates.json');
+const rakutenPath = path.resolve('src/data/rakuten.json');
+
+// 楽天のURLを、A8.net経由の楽天アフィリエイトリンクに変換する
+export function rakutenLink(url, cfg) {
+  const enc = encodeURIComponent;
+  const inner = `${cfg.hgcBase}?pc=${enc(url)}&m=${enc(url)}`;
+  return `https://rpx.a8.net/svt/ejp?a8mat=${cfg.a8mat}&rakuten=y&a8ejpredirect=${enc(inner)}`;
+}
 
 function walk(node, fn) {
   fn(node);
@@ -12,8 +20,19 @@ function walk(node, fn) {
 
 export default function remarkAffiliate() {
   const affiliates = JSON.parse(fs.readFileSync(dataPath, 'utf8'));
+  const rakuten = JSON.parse(fs.readFileSync(rakutenPath, 'utf8'));
   return (tree, file) => {
     walk(tree, (node) => {
+      if (node.type === 'link' && node.url.startsWith('rakuten:')) {
+        const target = node.url.slice(8);
+        if (!/^https:\/\/([a-z0-9-]+\.)*rakuten\.co\.jp\//.test(target)) {
+          throw new Error(`楽天以外のURLです: ${target}（${file.path}）`);
+        }
+        node.url = rakutenLink(target, rakuten);
+        node.data = node.data || {};
+        node.data.hProperties = { rel: 'sponsored noopener', target: '_blank', 'data-aff': 'rakuten' };
+        return;
+      }
       if (node.type !== 'link' || !node.url.startsWith('aff:')) return;
       const id = node.url.slice(4);
       const item = affiliates[id];
