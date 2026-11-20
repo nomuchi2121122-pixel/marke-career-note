@@ -1,0 +1,32 @@
+---
+import { getCollection } from 'astro:content';
+import { SITE } from '../data/site';
+import { CATEGORIES } from '../data/categories';
+import ArticleCard from './ArticleCard.astro';
+const posts = (await getCollection('articles', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+const counts = Object.fromEntries(CATEGORIES.map((c) => [c.name, posts.filter((p) => p.data.category === c.name).length]));
+---
+<aside class="sidebar">
+  <section class="side-box profile">
+    <p class="side-title">運営者</p>
+    <div class="avatar" aria-hidden="true">N</div>
+    <p class="profile-name">{SITE.operatorName}</p>
+    <p class="profile-text">人材紹介事業の責任者。求職者との面談や求人広告の運用、KPI管理を担当。マーケ職のキャリアと学び直しを実務目線で書いています。</p>
+    <p class="profile-links"><a href="/about/">プロフィール</a>・<a href={SITE.threadsUrl} target="_blank" rel="noopener me">Threads</a></p>
+  </section>
+  <section class="side-box">
+    <p class="side-title">新着記事</p>
+    <ul class="card-grid side-list">
+      {posts.slice(0, 5).map((p) => <ArticleCard post={p} compact />)}
+    </ul>
+  </section>
+  <section class="side-box">
+    <p class="side-title">カテゴリ</p>
+    <ul class="cat-list">
+      {CATEGORIES.filter((c) => counts[c.name] > 0).map((c) => (
+        <li><a href={`/category/${c.slug}/`}>{c.name}<span>{counts[c.name]}</span></a></li>
+      ))}
+    </ul>
+  </section>
+</aside>

@@ -23,6 +23,12 @@ export default function remarkAffiliate() {
   const rakuten = JSON.parse(fs.readFileSync(rakutenPath, 'utf8'));
   return (tree, file) => {
     walk(tree, (node) => {
+      // 本文中の写真は遅延読み込みにして、表示を速くする
+      if (node.type === 'image') {
+        node.data = node.data || {};
+        node.data.hProperties = { loading: 'lazy', decoding: 'async', width: 1200, height: 675 };
+        return;
+      }
       if (node.type === 'link' && node.url.startsWith('rakuten:')) {
         const target = node.url.slice(8);
         if (!/^https:\/\/([a-z0-9-]+\.)*rakuten\.co\.jp\//.test(target)) {

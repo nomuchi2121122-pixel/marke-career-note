@@ -1,14 +1,13 @@
 ---
 import Base from '../../layouts/Base.astro';
+import ArticleCard from '../../components/ArticleCard.astro';
 import { getCollection } from 'astro:content';
 const posts = (await getCollection('articles', ({ data }) => !data.draft))
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 ---
 <Base title="記事一覧" description="マーケ職のキャリア・スクール・転職・制度に関する記事の一覧です。">
-  <h1>記事一覧</h1>
-  <ul class="card-list">
-    {posts.map((p) => (
-      <li><a href={`/articles/${p.id}/`}>{p.data.title}</a><div class="meta">{p.data.category}</div></li>
-    ))}
+  <h1 class="page-title">記事一覧</h1>
+  <ul class="card-grid">
+    {posts.map((p) => <ArticleCard post={p} />)}
   </ul>
 </Base>

@@ -1,0 +1,20 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { FALLBACK_IMAGE } from '../data/categories';
+interface Props { post: CollectionEntry<'articles'>; compact?: boolean }
+const { post, compact = false } = Astro.props;
+const d = post.data;
+---
+<li class:list={['card', { compact }]}>
+  <a href={`/articles/${post.id}/`}>
+    <div class="card-thumb">
+      <img src={d.image ?? FALLBACK_IMAGE} alt="" loading="lazy" decoding="async" width="1200" height="675" />
+      <span class="badge">{d.category}</span>
+    </div>
+    <div class="card-body">
+      <p class="card-title">{d.title}</p>
+      {!compact && <p class="card-desc">{d.description}</p>}
+      <p class="card-date"><time datetime={(d.updatedDate ?? d.pubDate).toISOString()}>{(d.updatedDate ?? d.pubDate).toLocaleDateString('ja-JP')}</time></p>
+    </div>
+  </a>
+</li>

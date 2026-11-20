@@ -37,6 +37,8 @@
 
 ## 記事の書き方
 - frontmatter は `src/content.config.ts` のスキーマに従う。広告リンクを含む記事は `hasAffiliate: true`（記事冒頭にPR表記が自動で出る）
+- 写真：アイキャッチを `image`（例：`/images/xxx.jpg`）と `imageAlt` に入れ、本文にも区切りとして1〜2枚 `![説明](/images/xxx.jpg)` を入れる。写真は Unsplash の無料写真（images.unsplash.com、Unsplash+ は不可）を `?w=1200&h=675&fit=crop&q=70&fm=jpg` で `public/images/` に保存して使う。すでにある写真の使い回しも可
+- `points` に「この記事のポイント」を2〜4行で入れる（本文の「まとめ」と同じ内容でよい）
 - 広告リンクは必ず `[テキスト](aff:サービスID)` の形で書く。IDは `src/data/affiliates.json` に登録する。新しいサービスは `affiliateUrl` を空のまま追加する
 - 料金・補助率・条件などの数字は、必ず公式情報で確認し、`sources` に参照元URLを入れる。確認できない数字は書かない
 - 運営者の実体験が必要な箇所には、次の形で空欄を作る：

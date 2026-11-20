@@ -1,21 +1,26 @@
 ---
 import Base from '../layouts/Base.astro';
+import ArticleCard from '../components/ArticleCard.astro';
 import { getCollection } from 'astro:content';
 import { SITE } from '../data/site';
+import { CATEGORIES } from '../data/categories';
 const posts = (await getCollection('articles', ({ data }) => !data.draft))
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+const used = CATEGORIES.filter((c) => posts.some((p) => p.data.category === c.name));
 ---
 <Base title={SITE.name} description={SITE.tagline}>
-  <h1>{SITE.name}</h1>
-  <p>{SITE.tagline}。スクール・転職エージェント・制度は、公式情報で確認した事実と、実務で感じたことを分けて書いています。</p>
-  <h2>新着記事</h2>
-  <ul class="card-list">
-    {posts.map((p) => (
-      <li>
-        <a href={`/articles/${p.id}/`}>{p.data.title}</a>
-        <div class="meta">{p.data.category}・{p.data.pubDate.toLocaleDateString('ja-JP')}</div>
-        <div>{p.data.description}</div>
-      </li>
-    ))}
+  <section class="hero">
+    <img src="/images/typing-laptop.jpg" alt="" width="1200" height="675" fetchpriority="high" />
+    <div class="hero-text">
+      <h1>{SITE.name}</h1>
+      <p>{SITE.tagline}。公式情報で確認した事実と、実務で感じたことを分けて書いています。</p>
+    </div>
+  </section>
+  <nav class="cat-chips" aria-label="カテゴリ">
+    {used.map((c) => <a href={`/category/${c.slug}/`}>{c.name}</a>)}
+  </nav>
+  <h2 class="section-title">新着記事</h2>
+  <ul class="card-grid">
+    {posts.map((p) => <ArticleCard post={p} />)}
   </ul>
 </Base>

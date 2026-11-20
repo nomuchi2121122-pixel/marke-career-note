@@ -1,6 +1,9 @@
 ---
 import { SITE } from '../data/site';
 import '../styles.css';
+import Sidebar from '../components/Sidebar.astro';
+import { CATEGORIES } from '../data/categories';
+import { getCollection } from 'astro:content';
 interface Props {
   title: string;
   description: string;
@@ -11,12 +14,16 @@ interface Props {
   modifiedTime?: Date;
   /** ページ固有の構造化データ（JSON-LD）。サイト共通分は自動で入る */
   jsonLd?: Record<string, unknown>[];
+  /** OGP画像（記事のアイキャッチ）。なければサイト共通画像 */
+  image?: string;
+  /** サイドバーを出すか */
+  sidebar?: boolean;
 }
-const { title, description, showPr = false, type = 'website', publishedTime, modifiedTime, jsonLd = [] } = Astro.props;
+const { title, description, showPr = false, type = 'website', publishedTime, modifiedTime, jsonLd = [], image, sidebar = true } = Astro.props;
 const fullTitle = title === SITE.name ? title : `${title}｜${SITE.name}`;
 const canonical = new URL(Astro.url.pathname, Astro.site);
 const siteUrl = new URL('/', Astro.site).href;
-const ogImage = new URL('/og-default.png', Astro.site).href;
+const ogImage = new URL(image ?? '/og-default.png', Astro.site).href;
 
 // サイト共通の構造化データ：サイト名と運営者
 const siteJsonLd = [
@@ -40,6 +47,9 @@ const siteJsonLd = [
   },
 ];
 const allJsonLd = [...siteJsonLd, ...jsonLd];
+// 記事があるカテゴリだけメニューに出す
+const published = await getCollection('articles', ({ data }) => !data.draft);
+const navCategories = CATEGORIES.filter((c) => published.some((p) => p.data.category === c.name));
 ---
 <!doctype html>
 <html lang="ja">
@@ -67,15 +77,28 @@ const allJsonLd = [...siteJsonLd, ...jsonLd];
   </head>
   <body>
     <header class="site-header">
-      <div class="wrap">
-        <a class="logo" href="/">{SITE.name}</a>
-        <nav><a href="/articles/">記事一覧</a><a href="/about/">運営者情報</a></nav>
+      <div class="wrap header-inner">
+        <a class="logo" href="/"><span class="logo-mark" aria-hidden="true">M</span>{SITE.name}</a>
+        <p class="header-tagline">マーケ職の転職・学び直し・補助金の実用ノート</p>
       </div>
+      <nav class="global-nav" aria-label="メインメニュー">
+        <div class="wrap">
+          <a href="/">ホーム</a>
+          {navCategories.map((c) => <a href={`/category/${c.slug}/`}>{c.name}</a>)}
+          <a href="/articles/">記事一覧</a>
+          <a href="/about/">運営者情報</a>
+        </div>
+      </nav>
     </header>
-    {showPr && (
-      <p class="pr-notice wrap">【PR】本記事にはプロモーション（広告）が含まれています。紹介するサービスの申込みにより、当サイトが報酬を受け取る場合があります。</p>
-    )}
-    <main class="wrap"><slot /></main>
+    <div class:list={['wrap', 'page', { 'has-sidebar': sidebar }]}>
+      <main class="content">
+        {showPr && (
+          <p class="pr-notice">【PR】本記事にはプロモーション（広告）が含まれています。紹介するサービスの申込みにより、当サイトが報酬を受け取る場合があります。</p>
+        )}
+        <slot />
+      </main>
+      {sidebar && <Sidebar />}
+    </div>
     <footer class="site-footer">
       <div class="wrap">
         <nav>

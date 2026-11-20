@@ -11,6 +11,11 @@ const articles = defineCollection({
     category: z.enum(['スクール', '転職', '補助金・制度', 'ツール', 'キャリア']),
     draft: z.boolean().default(false),
     hasAffiliate: z.boolean().default(false),
+    /** アイキャッチ写真（public/ からのパス。例：/images/xxx.jpg） */
+    image: z.string().optional(),
+    imageAlt: z.string().default(''),
+    /** 記事冒頭の「この記事のポイント」（本文の要点を2〜4行で） */
+    points: z.array(z.string()).default([]),
     sources: z.array(z.object({ title: z.string(), url: z.string().url() })).default([]),
   }),
 });

@@ -1,0 +1,25 @@
+---
+import Base from '../../layouts/Base.astro';
+import ArticleCard from '../../components/ArticleCard.astro';
+import { getCollection } from 'astro:content';
+import { CATEGORIES } from '../../data/categories';
+export async function getStaticPaths() {
+  const posts = await getCollection('articles', ({ data }) => !data.draft);
+  // 記事が1本以上あるカテゴリだけページを作る（空のページを作らない）
+  return CATEGORIES.filter((c) => posts.some((p) => p.data.category === c.name)).map((c) => ({
+    params: { slug: c.slug },
+    props: {
+      name: c.name,
+      posts: posts.filter((p) => p.data.category === c.name).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()),
+    },
+  }));
+}
+const { name, posts } = Astro.props;
+---
+<Base title={`${name}の記事一覧`} description={`マーケ職の「${name}」に関する記事の一覧です。`}>
+  <nav class="breadcrumb" aria-label="パンくずリスト"><a href="/">ホーム</a> › <span>{name}</span></nav>
+  <h1 class="page-title">{name}</h1>
+  <ul class="card-grid">
+    {posts.map((p) => <ArticleCard post={p} />)}
+  </ul>
+</Base>

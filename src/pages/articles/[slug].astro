@@ -2,6 +2,8 @@
 import Base from '../../layouts/Base.astro';
 import { getCollection, render } from 'astro:content';
 import { SITE } from '../../data/site';
+import { categorySlug } from '../../data/categories';
+import ArticleCard from '../../components/ArticleCard.astro';
 export async function getStaticPaths() {
   const posts = await getCollection('articles', ({ data }) => !data.draft);
   return posts.map((post) => ({ params: { slug: post.id }, props: { post, all: posts } }));
@@ -33,7 +35,7 @@ const jsonLd = [
     datePublished: d.pubDate.toISOString(),
     dateModified: modified.toISOString(),
     mainEntityOfPage: url,
-    image: new URL('/og-default.png', Astro.site).href,
+    image: new URL(d.image ?? '/og-default.png', Astro.site).href,
     inLanguage: 'ja',
     author: { '@id': `${siteUrl}#operator` },
     publisher: { '@id': `${siteUrl}#operator` },
@@ -50,17 +52,31 @@ const jsonLd = [
   },
 ];
 ---
-<Base title={d.title} description={d.description} showPr={d.hasAffiliate} type="article" publishedTime={d.pubDate} modifiedTime={modified} jsonLd={jsonLd}>
+<Base title={d.title} description={d.description} showPr={d.hasAffiliate} type="article" publishedTime={d.pubDate} modifiedTime={modified} jsonLd={jsonLd} image={d.image}>
   <nav class="breadcrumb" aria-label="パンくずリスト">
-    <a href="/">ホーム</a> › <a href="/articles/">記事一覧</a> › <span>{d.category}</span>
+    <a href="/">ホーム</a> › <a href={`/category/${categorySlug(d.category)}/`}>{d.category}</a>
   </nav>
   <article>
-    <h1>{d.title}</h1>
-    <p class="meta">
-      {d.category}・公開 <time datetime={d.pubDate.toISOString()}>{fmt(d.pubDate)}</time>
-      {d.updatedDate && <>・更新 <time datetime={d.updatedDate.toISOString()}>{fmt(d.updatedDate)}</time></>}
-      ・執筆 <a href="/about/">{SITE.operatorName}</a>
-    </p>
+    <header class="article-header">
+      <a class="badge" href={`/category/${categorySlug(d.category)}/`}>{d.category}</a>
+      <h1>{d.title}</h1>
+      <p class="meta">
+        公開 <time datetime={d.pubDate.toISOString()}>{fmt(d.pubDate)}</time>
+        {d.updatedDate && <>　更新 <time datetime={d.updatedDate.toISOString()}>{fmt(d.updatedDate)}</time></>}
+        　執筆 <a href="/about/">{SITE.operatorName}</a>
+      </p>
+    </header>
+    {d.image && (
+      <figure class="eyecatch">
+        <img src={d.image} alt={d.imageAlt} width="1200" height="675" fetchpriority="high" decoding="async" />
+      </figure>
+    )}
+    {d.points.length > 0 && (
+      <section class="points">
+        <p class="points-title">この記事のポイント</p>
+        <ul>{d.points.map((pt) => <li>{pt}</li>)}</ul>
+      </section>
+    )}
     {toc.length >= 3 && (
       <nav class="toc" aria-label="目次">
         <p class="toc-title">目次</p>
@@ -75,6 +91,7 @@ const jsonLd = [
       </section>
     )}
     <aside class="author-box">
+      <div class="avatar" aria-hidden="true">N</div>
       <p class="author-name">この記事を書いた人：<a href="/about/">{SITE.operatorName}</a></p>
       <p>{SITE.operatorProfile}</p>
       <p><a href={SITE.threadsUrl} target="_blank" rel="noopener me">Threads（@nomryo_marketer）</a></p>
@@ -83,10 +100,8 @@ const jsonLd = [
   {related.length > 0 && (
     <section class="related">
       <h2>あわせて読みたい</h2>
-      <ul class="card-list">
-        {related.map((p) => (
-          <li><a href={`/articles/${p.id}/`}>{p.data.title}</a><div class="meta">{p.data.category}</div></li>
-        ))}
+      <ul class="card-grid">
+        {related.map((p) => <ArticleCard post={p} />)}
       </ul>
     </section>
   )}
