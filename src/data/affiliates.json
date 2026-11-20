@@ -42,7 +42,7 @@
     "status": "提携済み"
   },
   "mynavi-creator": {
-    "name": "マイナビクリエイター",
+    "name": "マイナビ転職クリエイターエージェント",
     "category": "転職エージェント（Web・ゲーム・クリエイター）",
     "officialUrl": "https://mynavi-creator.jp/",
     "affiliateUrl": "",
@@ -145,7 +145,7 @@
   "web-kaiseki": {
     "name": "ウェブ解析士認定資格",
     "category": "マーケティング資格",
-    "officialUrl": "https://www.waca.associates/jp/course/wac/",
+    "officialUrl": "https://www.waca.or.jp/course/wac/",
     "affiliateUrl": "",
     "asp": "A8.net",
     "a8ProgramId": "s00000024675001",
